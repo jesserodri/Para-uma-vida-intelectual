@@ -1,0 +1,113 @@
+header {
+  display: block;
+  width: 90%;
+  height: 80%;
+  margin: auto;
+  padding-top: 0rem;
+}
+
+header h1 {
+  font-family: "Jacques Francois Shadow", serif;
+  font-weight: 800;
+  font-style: oblique;
+  text-align: center;
+  color: antiquewhite;
+  margin: 0rem 0rem 1rem 0rem;
+}
+
+header nav {
+  background-color: #0d111a;
+}
+
+header nav ul {
+  display: inline-flex;
+  text-align: center;
+  width: 90%;
+  margin: auto;
+  height: auto;
+}
+header nav ul li {
+  text-decoration: solid;
+  margin: auto;
+  list-style: none;
+}
+header nav li a {
+  font-family: "Jacques Francois Shadow", serif;
+  font-weight: lighter;
+  font-style: normal;
+  color: antiquewhite;
+}
+header nav li a:hover {
+  color: yellow;
+  transition-duration: 0.225s;
+}
+
+body main .squarIndex {
+  display: none;
+}
+
+body main .open {
+  display: block;
+  text-align: center;
+  background-color: #0d111a;
+  border: #0d111a;
+  border-radius: 2rem;
+  width: 70%;
+  height: 100%;
+  margin: auto;
+  margin-top: 1rem;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+}
+.open p {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 2rem;
+  padding-bottom: 1rem;
+}
+
+.open h2 {
+  color: azure;
+  font-weight: normal;
+}
+.open li {
+  margin: auto;
+  display: inline-block;
+  padding-bottom: 0.225rem;
+}
+.open a {
+  margin: 1rem;
+  color: azure;
+}
+.open h2 {
+  font-family: "Jacques Francois", serif;
+}
+
+#listaIntrodução {
+  margin: 2rem;
+  margin-bottom: 0;
+}
+#listaIntrodução li a:hover {
+  transition-duration: 0.225s;
+  color: yellow;
+}
+.textoIntrodução {
+  display: none;
+  margin-top: 1rem;
+}
+
+.openIntro {
+  display: block;
+  margin-top: 1rem;
+  justify-items: center;
+}
+.openIntro li {
+  display: flex;
+  flex-direction: column;
+  font-family: "Jacques Francois", serif;
+  justify-items: center;
+  padding: 0.4rem;
+}
+.openIntro li:hover {
+  text-decoration: underline;
+  cursor: text;
+  transition-duration: 0.225s;
+}
