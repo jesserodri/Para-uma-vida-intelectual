@@ -69,6 +69,7 @@ body main .open {
   font-weight: normal;
 }
 .open li {
+  
   margin: auto;
   display: inline-block;
   padding-bottom: 0.225rem;
@@ -95,14 +96,15 @@ body main .open {
 }
 
 .openIntro {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   display: block;
   margin-top: 1rem;
   justify-items: center;
 }
 .openIntro li {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   display: flex;
   flex-direction: column;
-  font-family: "Jacques Francois", serif;
   justify-items: center;
   padding: 0.4rem;
 }

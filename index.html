@@ -13,17 +13,17 @@
       <nav>
         <hr />
         <ul>
-          <li><a id="inicio" href="#">INICIO</a></li>
-          <li><a id="introducao" href="#t">INTRODUÇÃO</a></li>
-          <li><a id="principaisFilo" href="#te">PRINCIPAIS FILOSOFOS</a></li>
-          <li><a id="roma" href="#tes">ROMA</a></li>
-          <li><a id="idadeMedia" href="#test">IDADE MÉDIA</a></li>
+          <li><a id="inicio" href="#guia">INICIO</a></li>
+          <li><a id="introducao" href="#geral">INTRODUÇÃO</a></li>
+          <li><a id="principaisFilo" href="#filosofos">PRINCIPAIS FILOSOFOS</a></li>
+          <li><a id="roma" href="#roma1">ROMA</a></li>
+          <li><a id="idadeMedia" href="#idadeMedia">IDADE MÉDIA</a></li>
         </ul>
         <hr />
       </nav>
     </header>
     <main>
-      <section class="squarIndex">
+      <section class="squarIndex" id="guia">
         <h2>Meu Guia de Livros</h2>
         <p>
           O tamanho de um site refere-se tanto às dimensões visuais da página
@@ -40,18 +40,15 @@
           desenvolvimento web. 
         </p>
       </section>
-      <section class="squarIndex">
+      <section class="squarIndex open" id="geral">
         <div id="start">
-          <ul id="listaIntrodução">
+          <ul id="listaIntrodução open">
             <li><a href="">INTRODUÇÃO GERAL</a></li>
             <li><a href="">HISTÓRIA GERAL</a></li>
             <li><a href="">HISTÓRIA DA FILOSOFIA</a></li>
           </ul>
           <hr />
-
-          <h2>Livro - Autor</h2>
-
-          <ul class="textoIntrodução">
+          <ul class="textoIntrodução ">
             <li>Ideias tem Consequências – Richard Weaver</li>
             <li>Introdução, Grécia, Roma e Idade Média</li>
             <li>Como Ler Livros – Mortimer Adler</li>
@@ -69,7 +66,7 @@
             <li>Depois da Virtude – Alasdair Mcintyre</li>
             <li>Série Sócrates Encontra – Peter Kreeft</li>
           </ul>
-          <ul class="textoIntrodução">
+          <ul class="textoIntrodução openIntro">
             <li>A Formação da Cristandade – Christopher Dawson</li>
             <li>Desde a Fundação da Cidade – Tito Lívio</li>
             <li>História da Guerra do Peloponeso – Tucídides</li>
@@ -88,7 +85,7 @@
             <li>História de Portugal – João Ameal</li>
             <li>História da Igreja – Daniel Rops</li>
           </ul>
-          <ul class="textoIntrodução openIntro">
+          <ul class="textoIntrodução">
             <li>História da Filosofia - Frederick Copleston</li>
             <li>Ordem e História – Eric Voegelin</li>
             <li>Curso de Filosofia – Régis Jolivet</li>
@@ -97,7 +94,7 @@
           </ul>
         </div>
       </section>
-      <section class="squarIndex open">
+      <section class="squarIndex" id="filosofos">
         <div id="start">
           <ul id="listaIntrodução">
             <li><a href="">PLATÃO</a></li>
@@ -106,8 +103,7 @@
             <li><a href="">SÃO TOMÁS DE AQUINO</a></li>
           </ul>
           <hr />
-
-          <ul class="textoIntrodução">
+          <ul class="textoIntrodução openIntro">
             <li>A Apologia de Sócrates</li>
             <li>Hipias Maior</li>
             <li>Laques</li>
@@ -132,7 +128,7 @@
             <li>Leis</li>
             <li>Sofista</li>
           </ul>
-          <ul class="textoIntrodução">
+          <ul class="textoIntrodução  ">
             <li>Convite à Filosofia</li>
             <li>Da geração e da Corrupção</li>
             <li>Ética a Nicomaco</li>
@@ -160,7 +156,7 @@
             <li>Confissões</li>
             <li>Retratações</li>
           </ul>
-          <ul class="textoIntrodução openIntro">
+          <ul class="textoIntrodução ">
             <li>Suma de Teologia</li>
             <li>Suma Contra os Gentios</li>
             <li>De Veritate</li>
@@ -179,13 +175,12 @@
           </ul>
         </div>
       </section>
-      <section class="squarIndex">
+      <section class="squarIndex" id="historiaRoma">
         <div id="start">
           <ul id="listaIntrodução">
             <li><a href="">ROMA</a></li>
           </ul>
           <hr />
-          <h2>Livro - Autor</h2>
           <ul class="textoIntrodução openIntro">
             <li>História da Filosofia - Frederick Copleston</li>
             <li>Ordem e História – Eric Voegelin</li>
@@ -195,14 +190,13 @@
           </ul>
         </div>
       </section>
-      <section class="squarIndex">
+      <section class="squarIndex" id="historiaIdadeMedia">
         <div id="start">
-          <ul id="listaIntrodução">
+          <ul id="listaIntrodução open">
             <li><a href="">IDADE MÉDIA</a></li>
           </ul>
           <hr />
 
-          <h2>Livro - Autor</h2>
           <ul class="textoIntrodução openIntro">
             <li>História da Filosofia - Frederick Copleston</li>
             <li>Ordem e História – Eric Voegelin</li>
@@ -214,4 +208,5 @@
       </section>
     </main>
   </body>
+  <script src="js/main.js"></script>
 </html>
