@@ -21,6 +21,7 @@
         </ul>
         <hr />
       </nav>
+      <!-- header-import removed: global import now available in the global summary (next to Export) -->
     </header>
     <main>
       <section class="squarIndex" id="guia">
@@ -210,3 +211,17 @@
   </body>
   <script src="js/main.js"></script>
 </html>
+
+<!-- Confirm modal (static markup used by js) -->
+<div class="confirm-overlay" style="display:none;">
+  <div class="confirm-box">
+    <div class="confirm-msg">Confirmação</div>
+    <div class="confirm-actions">
+      <button class="confirm-no">Cancelar</button>
+      <button class="confirm-yes">Sim</button>
+    </div>
+  </div>
+</div>
+
+<!-- Snackbar container (snackbars are inserted here) -->
+<div id="snackbar-root"></div>
