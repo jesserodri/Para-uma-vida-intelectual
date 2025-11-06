@@ -104,12 +104,68 @@ body main .open {
 .openIntro li {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   display: flex;
-  flex-direction: column;
-  justify-items: center;
+  flex-direction: row; /* colocar checkbox à esquerda e texto à direita */
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.4rem;
 }
 .openIntro li:hover {
   text-decoration: underline;
   cursor: text;
   transition-duration: 0.225s;
+}
+
+/* Estilo para itens marcados como lidos */
+.textoIntrodução li.read .book-title {
+  text-decoration: line-through;
+  color: #9aa0a6;
+  opacity: 0.8;
+}
+
+/* checkbox e label dentro das listas de livros */
+.read-checkbox {
+  margin-left: 0; /* deixamos à esquerda do texto */
+  margin-right: 0.5rem;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.book-label {
+  cursor: pointer;
+}
+
+/* controles por seção (marcar tudo + contador) */
+.section-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.5rem 1rem;
+}
+.mark-all-btn {
+  background: #1f2937;
+  color: #fff;
+  border: 1px solid #3b4252;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.mark-all-btn:hover {
+  background: #374151;
+}
+.read-counter {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+}
+
+/* badge no nav com contagem */
+header nav a { position: relative; }
+.nav-badge {
+  display: inline-block;
+  background: #ef4444;
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.08rem 0.4rem;
+  border-radius: 10px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
 }
