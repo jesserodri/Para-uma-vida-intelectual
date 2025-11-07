@@ -53,21 +53,23 @@ body main .open {
   background-color: #0d111a;
   border: #0d111a;
   border-radius: 2rem;
-  width: 70%;
+  width: 88%;
   height: 100%;
   margin: auto;
-  margin-top: 1rem;
-  padding: 0.5rem 2rem 0.5rem 2rem;
+  margin-top: 0.6rem;
+  padding: 0.4rem 1rem 0.4rem 1rem;
 }
 .open p {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 2rem;
   padding-bottom: 1rem;
+  font-size: 0.95rem;
 }
 
 .open h2 {
   color: azure;
   font-weight: normal;
+  font-size: 1.15rem;
 }
 .open li {
   
@@ -84,7 +86,7 @@ body main .open {
 }
 
 #listaIntrodução {
-  margin: 2rem;
+  margin: 1rem 0.5rem;
   margin-bottom: 0;
 }
 #listaIntrodução li a:hover {
@@ -107,13 +109,52 @@ body main .open {
   display: flex;
   flex-direction: row; /* colocar checkbox à esquerda e texto à direita */
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem;
+  gap: 0.4rem;
+  padding: 0.28rem 0.25rem;
+  line-height: 1.18;
+}
+
+/* Slightly larger list items for readability while keeping paragraphs a bit smaller */
+.openIntro li, .textoIntrodução li {
+  font-size: 0.98rem;
 }
 .openIntro li:hover {
   text-decoration: underline;
   cursor: text;
   transition-duration: 0.225s;
+}
+
+/* When page has vertical scroll (body.two-column or .has-vertical-scroll), present lists in two columns */
+body.two-column .openIntro {
+  column-count: 2;
+  column-gap: 1.8rem;
+  column-fill: auto; /* better distribution across columns */
+  width: 100%; /* ensure it uses full container width when splitting */
+}
+body.two-column .openIntro li {
+  display: block; /* column layout wants block children */
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+}
+/* animation helpers for switching columns */
+.openIntro {
+  transition: opacity 280ms ease, transform 280ms ease;
+  opacity: 1;
+  transform: none;
+}
+.columns-anim .openIntro { opacity: 0; transform: translateY(-8px); }
+
+/* Grid fallback when native CSS columns don't split as expected */
+body.grid-fallback .openIntro {
+  /* disable CSS columns and use grid to control visual two-columns */
+  column-count: 1 !important;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem 1.6rem;
+}
+body.grid-fallback .openIntro li {
+  display: block; /* each li occupies a grid cell */
 }
 
 /* Estilo para itens marcados como lidos */
@@ -160,8 +201,8 @@ body main .open {
   display: flex;
   justify-content: space-between; /* left and right areas */
   align-items: center;
-  gap: 0.75rem;
-  margin: 0.5rem 1rem;
+  gap: 0.5rem;
+  margin: 0.28rem 0.5rem;
 }
 .section-controls .controls-left { display: flex; align-items: center; gap: 0.6rem; }
 .section-controls .controls-right { display: flex; align-items: center; gap: 0.6rem; }

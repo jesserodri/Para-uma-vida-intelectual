@@ -14,6 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // registry para controlar seções, itens e controles (usado para badges/atualizações)
         const sectionRegistry = new Map();
 
+    // Prefer grid-based two-column fallback when native CSS columns are unreliable.
+    // Set to true to force the grid fallback whenever two-column mode is activated.
+    const PREFER_GRID_FOR_COLUMNS = true;
+
         // Abre apenas uma section por vez
         sections.forEach(section => {
             section.addEventListener('click', (e) => {
@@ -21,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 section.classList.add('open');
                 // abrir primeira subcategoria automaticamente
                 openFirstSubcategory(section);
+                // re-check vertical scroll after changing open section
+                if (typeof checkVerticalScroll === 'function') checkVerticalScroll();
             });
 
         // tratar subcategorias dentro da section: primeiro <ul> em #start é a lista de categorias
@@ -65,11 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             if (a) {
-                a.addEventListener('click', handler);
+                a.addEventListener('click', (ev) => { handler(ev); if (typeof checkVerticalScroll === 'function') checkVerticalScroll(); });
                 // permitir teclado
                 li.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         handler(e);
+                        if (typeof checkVerticalScroll === 'function') checkVerticalScroll();
                     }
                 });
             }
@@ -430,6 +437,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const span = el.querySelector('.global-summary-text');
                 if (span) span.textContent = `Total lidos: ${read}/${total}`;
                 else el.textContent = `Total lidos: ${read}/${total}`;
+                // after updating counts, re-check if page has vertical scroll to toggle two-column layout
+                if (typeof checkVerticalScroll === 'function') checkVerticalScroll();
             }
 
         // função para abrir a primeira subcategoria de uma seção (se houver)
@@ -444,6 +453,82 @@ document.addEventListener('DOMContentLoaded', () => {
             first.classList.add('openIntro');
             first.id = `${first.dataset.origId || first.id}Open`;
         }
+
+        // Detect vertical scrollbar and toggle a class on body to enable two-column lists
+        // Also proactively enable two-column/grid fallback when any visible list has many items
+        function checkVerticalScroll() {
+            try {
+                // Use documentElement.clientHeight which is more reliable than window.innerHeight
+                // for detecting whether the document has vertical overflow.
+                const doc = document.documentElement;
+                // use the maximum reported scrollHeight between documentElement and body
+                // to be robust across browsers and positioning differences
+                const scrollH = Math.max(doc.scrollHeight || 0, document.body?.scrollHeight || 0);
+                const clientH = doc.clientHeight || Math.max(window.innerHeight || 0, document.documentElement.clientHeight || 0);
+                const hasScroll = scrollH > (clientH + 2); // small tolerance
+                const was = document.body.classList.contains('two-column');
+                // decide proactively if we need columns due to long lists even when there's no scroll
+                const openLists = Array.from(document.querySelectorAll('.openIntro'));
+                const LONG_LIST_THRESHOLD = 8; // if a list has more items than this, prefer columns
+                const hasLongList = openLists.some(el => (el.children && el.children.length) ? el.children.length > LONG_LIST_THRESHOLD : false);
+                // prefer columns if either we have scroll or there's a long list
+                const needColumns = hasScroll || hasLongList;
+
+                if (needColumns && !was) {
+                    // prepare animation state, then enable two-column in next frame
+                    document.body.classList.add('columns-anim');
+                    requestAnimationFrame(() => {
+                        document.body.classList.add('two-column');
+                        // remove the anim class on the following frame so the transition plays
+                        requestAnimationFrame(() => document.body.classList.remove('columns-anim'));
+                        // prefer grid fallback immediately if configured (forces visual split)
+                        if (PREFER_GRID_FOR_COLUMNS) document.body.classList.add('grid-fallback');
+                        // after layout, verify columns actually took effect; if not, enable grid fallback
+                        requestAnimationFrame(() => verifyColumnLayoutFallback());
+                    });
+                } else if (!needColumns && was) {
+                    // animate out: add anim class then remove two-column after transition
+                    document.body.classList.add('columns-anim');
+                    setTimeout(() => {
+                        document.body.classList.remove('two-column');
+                        document.body.classList.remove('columns-anim');
+                        // remove any fallback state as well
+                        document.body.classList.remove('grid-fallback');
+                    }, 320);
+                }
+
+                document.body.classList.toggle('has-vertical-scroll', !!hasScroll);
+            } catch (err) {
+                // fail silently
+            }
+        }
+
+        // If the browser fails to layout CSS columns (some browsers may not split
+        // block-level children as expected), enable a grid-based fallback which
+        // reliably distributes visible items into two visual columns.
+        function verifyColumnLayoutFallback() {
+            try {
+                const lists = Array.from(document.querySelectorAll('.openIntro'));
+                for (const el of lists) {
+                    const style = window.getComputedStyle(el);
+                    const cc = parseInt(style.columnCount, 10) || 1;
+                    const itemCount = el.children.length || 0;
+                    // if columns are enabled but computed columnCount is 1 while there are many items,
+                    // we assume the native column layout didn't take effect and enable a grid fallback
+                    if (document.body.classList.contains('two-column') && cc <= 1 && itemCount > 6) {
+                        document.body.classList.add('grid-fallback');
+                        return;
+                    }
+                }
+                document.body.classList.remove('grid-fallback');
+            } catch (err) {
+                // ignore
+            }
+        }
+
+        // run on load and resize
+        window.addEventListener('load', () => setTimeout(checkVerticalScroll, 50));
+        window.addEventListener('resize', () => setTimeout(checkVerticalScroll, 100));
 
         // atualiza/insere badge no nav para a seção
         function updateNavBadge(sectionId, read = 0, total = 0) {
